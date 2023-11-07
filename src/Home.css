@@ -1,0 +1,14 @@
+#root_container_home {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+#home_screen{
+    width: 20rem;
+    height: 40rem;
+    background-color: green;
+    
+}
