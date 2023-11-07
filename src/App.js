@@ -1,23 +1,29 @@
-import logo from './logo.svg';
 import './App.css';
+import React, { useState } from 'react';
+import {Home} from './Home.js';
+import {History} from './History.js';
+import {Insights_screen} from './Insights.js';
+
 
 function App() {
+  const [activeScreen, setActiveScreen] = useState('home');
+
+  // Define a function to switch between screens
+  const switchScreen = (screen) => {
+    setActiveScreen(screen);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+
+      {activeScreen === 'insights' && <Insights_screen />}
+      {activeScreen === 'home' && <Home />}
+      {activeScreen === 'history' && <History />}
+
+      <button id="home_button" onClick={() => switchScreen('insights')}>insights</button>
+      <button onClick={() => switchScreen('home')}>home</button>
+      <button onClick={() => switchScreen('history')}>history</button>
+      
     </div>
   );
 }
