@@ -17,7 +17,7 @@ function App() {
     <div>
 
       {activeScreen === 'insights' && <Insights_screen />}
-      {activeScreen === 'home' && <Home />}
+      {activeScreen === 'home' && <Home switchScreen={switchScreen} />}
       {activeScreen === 'history' && <History />}
 
       <button id="home_button" onClick={() => switchScreen('insights')}>insights</button>
