@@ -1,0 +1,132 @@
+#root_container_home {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; 
+}
+
+#home_screen {
+    width: 20rem; 
+    height: 40rem; 
+    background-color: lightblue; 
+    border-radius: 1rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+    position: relative; 
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; 
+}
+
+#top_bar {
+    width: 100%;
+    background-color: #77dd77;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.02rem 1rem;
+    border-top-left-radius: 1rem;
+    border-top-right-radius: 1rem;
+    box-sizing: border-box; 
+}
+
+#hamburger_button {
+    width: 30px;
+    height: 30px;
+    background-color: #fff; /* White color for the button */
+    border: none;
+    border-radius: 0.375rem; /* Rounded square shape */
+    position: relative; /* Relative position for pseudo-elements */
+    cursor: pointer;
+}
+
+#root_container_home {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+#hamburger_button {
+    width: 30px;
+    height: 30px;
+    background-color: #fff; /* White color for the button */
+    border: none;
+    border-radius: 0.375rem; /* Rounded square shape */
+    position: relative; /* Relative position for pseudo-elements */
+    cursor: pointer;
+}
+
+#hamburger_button::before,
+#hamburger_button::after,
+#hamburger_button span {
+    content: '';
+    position: absolute;
+    width: 20px; /* Width of the bars */
+    height: 2px; /* Height of the bars */
+    background-color: #333; /* Color of the bars */
+    transition: all 0.3s; /* Transition for the animation */
+}
+
+#hamburger_button span {
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+#hamburger_button::before {
+    top: 10px;
+}
+
+#hamburger_button::after {
+    bottom: 10px;
+}
+
+#side_menu {
+    width: 50%; /* Half of the screen width */
+    height: 100%; /* Full height */
+    background-color: #fff; /* White background */
+    position: absolute; /* Absolute position to overlay */
+    top: 0;
+    left: 0;
+    box-shadow: 4px 0 8px rgba(0, 0, 0, 0.1); /* Shadow to the right */
+    z-index: 100; /* Ensure it's above other content */
+    transition: transform 0.3s; /* Animation for sliding in */
+    transform: translateX(-100%); /* Start off-screen */
+}
+
+#root_container_home.open #side_menu {
+    transform: translateX(0); /* Slide in when open */
+}
+
+#bottom_menu {
+    width: 100%;
+    display: flex;
+    justify-content: space-around; /* This will spread out your buttons */
+    position: absolute; /* Position it at the bottom */
+    bottom: 0; /* Align to the bottom */
+    background-color: black; /* Give it a different background to stand out */
+    border-bottom-left-radius: 1rem;
+    border-bottom-right-radius: 1rem; /* Round the top corners */
+    padding: 1rem 0; /* Add some padding inside the menu bar */
+}
+
+.menu_button {
+    padding: 10px 20px;
+    width: 50px; /* Fixed width and height for circles */
+    height: 50px; 
+    background: #272626; /* Light grey background for the buttons */
+    border: none;
+    border-radius: 50%;
+    border-radius: 5px; /* Rounded corners for the buttons */
+    font-size: 1rem;
+    color: white; /* Text color */
+    line-height: 50px; /* Center the text vertically */
+    text-align: center; /* Center the text horizontally */
+}
+
+.menu_button:hover {
+    background-color: #e0e0e0; /* Slightly darker grey on hover */
+    cursor: pointer;
+}
