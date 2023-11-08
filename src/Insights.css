@@ -1,0 +1,121 @@
+#root_container_insight {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; 
+    
+  }
+
+  #spending_header {
+    width: 100%;
+    background-color: #77dd77;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.02rem 1rem;
+    border-top-left-radius: 1rem;
+    border-top-right-radius: 1rem;
+    box-sizing: border-box; 
+   
+  }
+  
+  #spending_header h1{
+    /* Styles for the header */
+    flex-grow: 1;
+    font-size: 20px;
+  }
+  #header_logo {
+    height: 70px;
+    width: auto; /* Keeps the aspect ratio of the logo */
+    order: 2;
+  }
+
+  #button_container {
+    display: flex;
+    margin:12px;
+    justify-content: flex-end; /* Aligns children (buttons) to the right */
+    align-items: center; /* Centers children vertically, if needed */
+    width: 96%; 
+    
+    
+  }
+  .date-picker-container {
+    display: inline-block; /* Or flex, depending on your layout */
+    position: relative;
+    /* Additional styling if needed */
+  }
+  
+  .date-picker-overlay {
+   
+    position: absolute;
+    top: 100%; /* Position below the button */
+    right: 0; /* Align with the left edge of the button */
+    z-index: 50; /* Ensure it's above other content */
+    /* Additional styling for the overlay background, borders, etc. */
+  }
+  
+  /* Ensure the date picker itself fills the overlay container */
+  .react-datepicker-wrapper {
+    display: block;
+  }
+  #start_button {
+    background-color: #77dd77;
+    
+    
+  }
+  #end_button {
+    background-color: #77dd77;
+    
+  }
+
+  
+  #spending_charts img {
+    margin:14px;
+    width: 110%; /* Adjust as necessary */
+    margin-bottom: 20px;
+  }
+ #chart2 {
+    position: relative; /* This is needed for z-index to work */
+    align-items: center;
+    padding-left: 30px;
+    padding-right: 0px;
+    padding-bottom:100px;
+
+ }
+  
+ 
+
+
+
+ #bottom_menu {
+    width: 100%;
+    display: flex;
+    justify-content: space-around; /* This will spread out your buttons */
+    position: absolute; /* Position it at the bottom */
+    bottom: 0; /* Align to the bottom */
+    background-color: black; /* Give it a different background to stand out */
+    border-bottom-left-radius: 1rem;
+    border-bottom-right-radius: 1rem; /* Round the top corners */
+    padding: 1rem 0; /* Add some padding inside the menu bar */
+}
+
+.menu_button {
+    padding: 10px 20px;
+    width: 50px; /* Fixed width and height for circles */
+    height: 50px; 
+    background: #272626; /* Light grey background for the buttons */
+    border: none;
+    border-radius: 50%;
+    border-radius: 5px; /* Rounded corners for the buttons */
+    font-size: 1rem;
+    color: white; /* Text color */
+    line-height: 50px; /* Center the text vertically */
+    text-align: center; /* Center the text horizontally */
+}
+
+.menu_button:hover {
+    background-color: #e0e0e0; /* Slightly darker grey on hover */
+    cursor: pointer;
+}
