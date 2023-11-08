@@ -1,0 +1,93 @@
+#root_container_History {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; 
+}
+
+#history_screen {
+    width: 20rem; 
+    height: 40rem; 
+    background-color: lightblue; 
+    border-radius: 1rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+    display: flex;
+    flex-direction: column;
+    
+}
+
+#top_bar_history {
+    width: 100%;
+    background-color: #d9d9d9;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.02rem 1rem;
+    border-top-left-radius: 1rem;
+    border-top-right-radius: 1rem;
+    box-sizing: border-box; 
+}
+
+#fincial_table_container {
+    align-items: center;
+    overflow: auto;
+    height: 27rem; /* Set the desired height for your table container */
+
+}
+  
+  table {
+    width: 100%; /* Make the table occupy the full container width */
+    border-collapse: collapse;
+  }
+  
+  thead {
+    
+    
+    background-color: #f0f0f0; /* Style the table header as needed */
+  }
+  
+  th, td {
+    border: .1rem solid #ddd; /* Add cell borders as needed */
+    padding: .5rem;
+    text-align: left;
+  }
+
+
+
+
+
+
+#bottom_menu_history {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center; /* This will spread out your buttons */
+    bottom: 0; /* Align to the bottom */
+    background-color: black; /* Give it a different background to stand out */
+    border-bottom-left-radius: 1rem;
+    border-bottom-right-radius: 1rem; /* Round the top corners */
+    padding: 1rem 0; /* Add some padding inside the menu bar */
+    gap:3.6rem;
+}
+
+.menu_button_history {
+    padding: 10px 20px;
+    width: 50px; /* Fixed width and height for circles */
+    height: 50px; 
+    background: #272626; /* Light grey background for the buttons */
+    border: none;
+    border-radius: 50%;
+    border-radius: 5px; /* Rounded corners for the buttons */
+    font-size: 1rem;
+    color: white; /* Text color */
+    line-height: 50px; /* Center the text vertically */
+    text-align: center; /* Center the text horizontally */
+}
+
+.menu_button_history:hover {
+    background-color: #e0e0e0; /* Slightly darker grey on hover */
+    cursor: pointer;
+}
+
