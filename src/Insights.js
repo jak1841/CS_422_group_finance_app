@@ -6,6 +6,9 @@ import image1 from './image1.png';
 import image2 from './image2.png';
 import image3 from './image3.png'
 import logo from './rise.png';
+import home from './home.png';
+import insight from './insight.png';
+import history from './history.png';
 
 export const Insights_screen = ({ switchScreen }) => {
   
@@ -88,12 +91,17 @@ export const Insights_screen = ({ switchScreen }) => {
 
 
 
-        <div id="bottom_menu">
-          <button className="menu_button" onClick={() => switchScreen('insights')}>Insights</button>
-          <button className="menu_button" onClick={() => switchScreen('home')}>Home</button>
-          <button className="menu_button" onClick={() => switchScreen('history')}>History</button>
-                    
-         </div>
+            <div id="bottom_menu">
+               <button className="menu_button" onClick={() => switchScreen('insights')}>
+                   <img src={insight} alt="Insights" style={{ width: '100%', height: '100%' }} />
+               </button>
+               <button className="menu_button" onClick={() => switchScreen('home')}>
+                   <img src={home} alt="Home" style={{ width: '100%', height: '100%' }} />
+               </button>
+               <button className="menu_button" onClick={() => switchScreen('history')}>
+                   <img src={history} alt="History" style={{ width: '100%', height: '100%' }} />
+               </button>
+            </div>
 
           
         </div>

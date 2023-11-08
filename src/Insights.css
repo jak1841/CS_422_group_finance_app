@@ -101,21 +101,28 @@
     padding: 1rem 0; /* Add some padding inside the menu bar */
 }
 
-.menu_button {
-    padding: 10px 20px;
-    width: 50px; /* Fixed width and height for circles */
-    height: 50px; 
-    background: #272626; /* Light grey background for the buttons */
-    border: none;
-    border-radius: 50%;
-    border-radius: 5px; /* Rounded corners for the buttons */
-    font-size: 1rem;
-    color: white; /* Text color */
-    line-height: 50px; /* Center the text vertically */
-    text-align: center; /* Center the text horizontally */
-}
+
 
 .menu_button:hover {
     background-color: #e0e0e0; /* Slightly darker grey on hover */
     cursor: pointer;
+}
+
+.menu_button {
+  /* ... other styles ... */
+  width: 50px; /* Increase width for a larger button */
+  height: 50px; /* Increase height to the same as width for a circle */
+  border-radius: 50%; /* Keeps the button circular */
+  border: none; /* Optional: remove border if present */
+  padding: 0; /* Remove padding to ensure image fills the entire button */
+  overflow: hidden; /* Ensures no part of the image spills out of the button */
+  background-color: #92e0ff;
+  
+}
+
+.menu_button img {
+  width: 100%; /* Image will fill the width of the button */
+  height: 100%; /* Image will fill the height of the button */
+  object-fit: cover; /* Ensures the image covers the button without distortion */
+  border-radius: 50%; /* Keeps the image circular to match the button */
 }
