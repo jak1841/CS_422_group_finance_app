@@ -1,5 +1,8 @@
 import './History.css';
 import React, { useState } from 'react'; // Import useState
+import home from './home.png';
+import insight from './insight.png';
+import history from './history.png';
 
 export const History = ({ switchScreen }) => {
     const [isMenuOpen, setIsMenuOpen] = useState(false); // State to manage menu toggle
@@ -16,9 +19,15 @@ export const History = ({ switchScreen }) => {
                 <Finance_table />
 
                 <div id="bottom_menu_history">
-                    <button className="menu_button_history" onClick={() => switchScreen('insights')}>Insights</button>
-                    <button className="menu_button_history" onClick={() => switchScreen('home')}>Home</button>
-                    <button className="menu_button_history" onClick={() => switchScreen('history')}>History</button>
+                    <button className="menu_button_history" onClick={() => switchScreen('insights')}>
+                        <img className="menus_buttons_image_history" src={insight} alt="Insights" />
+                    </button>
+                    <button className="menu_button_history" onClick={() => switchScreen('home')}>
+                        <img className="menus_buttons_image_history" src={home} alt="Home" />
+                    </button>
+                    <button className="menu_button_history" onClick={() => switchScreen('history')}>
+                        <img className="menus_buttons_image_history" src={history} alt="History" />
+                    </button>
                 </div>
                 
             </div>
@@ -45,7 +54,14 @@ const Finance_table = () => {
         <tr key={item.id}>
           <td>{item.amount}</td>
           <td>{item.category}</td>
-          <td>{item.date}</td>
+          <td>
+            <div className='date_cell_container'>
+                {item.date}
+                <button className='date_cell_3_dots_button'>
+                    &#8942;
+                </button>
+            </div>
+          </td>
         </tr>
       ));
       
