@@ -74,17 +74,20 @@
 }
 
 .menu_button_history {
-    padding: 10px 20px;
+    display: flex;
     width: 50px; /* Fixed width and height for circles */
     height: 50px; 
     background: #272626; /* Light grey background for the buttons */
+    background-color: lightblue;
     border: none;
     border-radius: 50%;
-    border-radius: 5px; /* Rounded corners for the buttons */
+    border-radius: 2rem; /* Rounded corners for the buttons */
     font-size: 1rem;
     color: white; /* Text color */
     line-height: 50px; /* Center the text vertically */
     text-align: center; /* Center the text horizontally */
+    justify-content: center;
+    align-items: center;
 }
 
 .menu_button_history:hover {
@@ -92,3 +95,28 @@
     cursor: pointer;
 }
 
+.menus_buttons_image_history{
+  width: 3rem;
+  height: 100%;
+}
+
+.date_cell_container{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between; /* Pushes the button to the right */
+
+
+}
+
+.date_cell_3_dots_button{
+  align-items: right;
+  justify-content: right;
+  background-color: transparent;
+  border-color: transparent;
+  font-size: 1.5rem;
+  border-radius: 2rem;
+}
+
+.date_cell_3_dots_button:hover{
+  background-color: #e0e0e0;
+}
