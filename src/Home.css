@@ -4,7 +4,6 @@
     justify-content: center;
     align-items: center;
     height: 100vh; 
-    overflow-y: auto;
 }
 
 #home_screen {
@@ -17,7 +16,6 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between; 
-    overflow-y: auto;
 }
 
 #top_bar {
@@ -89,10 +87,7 @@
     display: flex;
     justify-content: space-around; /* This will spread out your buttons */
     position: bottom; /* Fixes the position relative to the viewport */
-    bottom: 0; /* Keeps it at the bottom */
-    left: 0; /* Aligns it to the left edge */
     background-color: black; /* Background color */
-    z-index: 10; /* Ensures it stays above other content */
 }
 
 .menu_button {
@@ -122,6 +117,7 @@
     justify-content: top; /* Center buttons vertically */
     align-items: center;
     gap: 5.5rem; /* Adjust gap to a reasonable size */
+    overflow-y: auto;
 }
 
 .green-button {
@@ -142,8 +138,6 @@
 
 .green-button.expanded {
     border-radius: 1rem; /* Consistent with the design */
-    overflow-y: auto; /* Make it scrollable if content overflows */
-    transition: width 0.3s ease-in-out, height 0.3s ease-in-out, border-radius 0.3s ease-in-out;
 }
 
 .budget-creation-area {
