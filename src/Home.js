@@ -7,10 +7,16 @@ import history from './history.png';
 
 export const Home = ({ switchScreen }) => {
     const [isMenuOpen, setIsMenuOpen] = useState(false); // State to manage menu toggle
+    const [isCreateBudgetOpen, setIsCreateBudgetOpen] = useState(false);
 
     const toggleMenu = () => {
-        setIsMenuOpen(!isMenuOpen); // Toggle the state
+        setIsMenuOpen(!isMenuOpen);
     };
+
+    const toggleCreateBudget = () => {
+        setIsCreateBudgetOpen(!isCreateBudgetOpen);
+    };
+    
 
     return (
         <div id="root_container_home">
@@ -26,6 +32,20 @@ export const Home = ({ switchScreen }) => {
                         {/* Side menu content here */}
                     </div>
                 )}
+                <div className="buttons-container">
+                    <button className={`green-button ${isCreateBudgetOpen ? 'expanded' : ''}`} onClick={toggleCreateBudget}>
+                        {isCreateBudgetOpen ? 'Close' : 'Create Budget'}
+                    </button>
+                    {isCreateBudgetOpen && (
+                        <div className="budget-creation-area">
+                            <input type="text" placeholder="Budget Goal" />
+                            <input type="date" />
+                            <button className="create-budget-btn">Create Budget →</button>
+                        </div>
+                    )}
+                    <button className="green-button" onClick={() => {/* Handle click event */}}>Add Expense</button>
+                    <button className="green-button" onClick={() => {/* Handle click event */}}>Add Income</button>
+                </div>
                 <div id="bottom_menu">
                <button className="menu_button" onClick={() => switchScreen('insights')}>
                    <img src={insight} alt="Insights" style={{ width: '100%', height: '100%' }} />
