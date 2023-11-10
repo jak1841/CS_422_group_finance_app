@@ -15,12 +15,12 @@ export const History = ({ switchScreen }) => {
             <div id="history_screen">
                 <div id="top_bar_history">
                     <h1>History</h1>
-                    
                 </div>
                 
-                <Finance_table />
-
-                <div id="bottom_menu_history">
+                <Finance_table /> 
+                          
+            </div>
+            <div id="bottom_menu_history">
                     <button className="menu_button_history" onClick={() => switchScreen('insights')}>
                         <img className="menus_buttons_image_history" src={insight} alt="Insights" />
                     </button>
@@ -30,9 +30,8 @@ export const History = ({ switchScreen }) => {
                     <button className="menu_button_history" onClick={() => switchScreen('history')}>
                         <img className="menus_buttons_image_history" src={history} alt="History" />
                     </button>
-                </div>
-                
-            </div>
+                </div>     
+            
         </div>
     );
 }

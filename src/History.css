@@ -61,7 +61,7 @@
 
 
 #bottom_menu_history {
-    width: 100%;
+    width: 20rem;
     display: flex;
     flex-direction: row;
     justify-content: center; /* This will spread out your buttons */
