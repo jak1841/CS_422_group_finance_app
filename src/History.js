@@ -3,6 +3,8 @@ import React, { useState } from 'react'; // Import useState
 import home from './home.png';
 import insight from './insight.png';
 import history from './history.png';
+import red_trash from './images/Red_trash_Can.svg';
+import write_symbol from './images/Write_symbol.svg';
 
 export const History = ({ switchScreen }) => {
     const [isMenuOpen, setIsMenuOpen] = useState(false); // State to manage menu toggle
@@ -57,9 +59,7 @@ const Finance_table = () => {
           <td>
             <div className='date_cell_container'>
                 {item.date}
-                <button className='date_cell_3_dots_button'>
-                    &#8942;
-                </button>
+                <Item_edit_button/>
             </div>
           </td>
         </tr>
@@ -83,4 +83,31 @@ const Finance_table = () => {
     
 }
 
+
+const Item_edit_button = () => {
+    const [isDivVisible, setDivVisible] = useState(false);
+
+    const toggleDiv = () => {
+        setDivVisible(!isDivVisible);
+    };
+
+    return(
+    <div>
+        <button className='date_cell_3_dots_button' onClick={toggleDiv}>
+            &#8942;
+        </button>
+
+        {isDivVisible && (
+        <div className='edit_button_pop_up_container'>
+            <div className='edit_button_container'>
+                <img style={{width: "1.5rem", height: "1.25rem"}} src={red_trash}/>
+                <img style={{width: "1.5rem", height: "1.5rem"}} src={write_symbol}/>
+            </div>
+        </div>
+        )}
+    </div>
+   
+    
+    );
+}
 
