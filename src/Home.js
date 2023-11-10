@@ -8,14 +8,14 @@ import history from './history.png';
 export const Home = ({ switchScreen }) => {
     const [isMenuOpen, setIsMenuOpen] = useState(false); // State to manage menu toggle
     const [isCreateBudgetOpen, setIsCreateBudgetOpen] = useState(false);
+        const [isAddExpenseOpen, setIsAddExpenseOpen] = useState(false);
+    const [isAddIncomeOpen, setIsAddIncomeOpen] = useState(false);
 
-    const toggleMenu = () => {
-        setIsMenuOpen(!isMenuOpen);
-    };
+    const toggleAddExpense = () => setIsAddExpenseOpen(!isAddExpenseOpen);
+    const toggleAddIncome = () => setIsAddIncomeOpen(!isAddIncomeOpen);
 
-    const toggleCreateBudget = () => {
-        setIsCreateBudgetOpen(!isCreateBudgetOpen);
-    };
+    const toggleMenu = () => {setIsMenuOpen(!isMenuOpen);};
+    const toggleCreateBudget = () => {setIsCreateBudgetOpen(!isCreateBudgetOpen);};
     
 
     return (
@@ -43,8 +43,45 @@ export const Home = ({ switchScreen }) => {
                             <button className="create-budget-btn">Create Budget →</button>
                         </div>
                     )}
-                    <button className="green-button" onClick={() => {/* Handle click event */}}>Add Expense</button>
-                    <button className="green-button" onClick={() => {/* Handle click event */}}>Add Income</button>
+                    <button className={`green-button ${isAddExpenseOpen ? 'expanded' : ''}`} onClick={toggleAddExpense}>
+                {isAddExpenseOpen ? 'Close' : 'Add Expense'}
+            </button>
+            {isAddExpenseOpen && (
+                <div className="expense-creation-area">
+                    <input type="text" placeholder="Expense Amount" />
+                    <select name="category">
+                    <option value="">Select Category</option>
+                    <option value="food">Food</option>
+                    <option value="transport">Transport</option>
+                    <option value="utilities">Utilities</option>
+                    </select>
+                    <div className="checkbox-container">
+                        <input type="checkbox" id="recurringExpense" />
+                        <label htmlFor="recurringExpense">Recurring</label>
+                    </div>
+                    <button className="insert-expense-btn">Insert Expense →</button>
+                </div>
+            )}
+
+            <button className={`green-button ${isAddIncomeOpen ? 'expanded' : ''}`} onClick={toggleAddIncome}>
+                {isAddIncomeOpen ? 'Close' : 'Add Income'}
+            </button>
+            {isAddIncomeOpen && (
+                <div className="income-creation-area">
+                    <input type="text" placeholder="Income Amount" />
+                    <select name="category">
+                    <option value="">Select Category</option>
+                    <option value="salary">Salary</option>
+                    <option value="investment">Investment</option>
+                    <option value="gift">Gift</option>
+                    </select>
+                    <div className="checkbox-container">
+                        <input type="checkbox" id="recurringExpense" />
+                        <label htmlFor="recurringExpense">Recurring</label>
+                    </div>
+                    <button className="insert-income-btn">Insert Income →</button>
+                </div>
+            )}                    
                 </div>
                 <div id="bottom_menu">
                <button className="menu_button" onClick={() => switchScreen('insights')}>

@@ -169,3 +169,75 @@
 .create-budget-btn:hover {
     background-color: #005f00;
 }
+
+/* Styles for Expense and Income creation areas */
+.expense-creation-area,
+.income-creation-area {
+    background-color: lightgreen; /* Light blue background for distinction */
+    border-radius: 1rem;
+    padding: 1rem;
+    margin-top: 1rem; /* Add some space above the area */
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem; /* Space between elements */
+}
+
+/* Styles for Input fields in Expense and Income creation areas */
+.expense-creation-area input[type="text"],
+.income-creation-area input[type="text"],
+.expense-creation-area input[type="checkbox"] + label,
+.income-creation-area input[type="checkbox"] + label {
+    padding: 0.5rem;
+    border: 1px solid #ccc; /* Consistent border style */
+    border-radius: 0.5rem; /* Rounded corners */
+    font-size: 0.9em; /* Slightly smaller font size for better fit */
+}
+
+/* Styles for checkboxes in Expense and Income creation areas */
+.expense-creation-area input[type="checkbox"],
+.income-creation-area input[type="checkbox"] {
+    margin-right: 0.5rem; /* Space between checkbox and label */
+}
+
+/* Styles for the 'Insert Expense' and 'Insert Income' buttons */
+.insert-expense-btn,
+.insert-income-btn {
+    background-color: #4caf50; /* Green color */
+    color: white;
+    border: none;
+    border-radius: 0.5rem;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s; /* Smooth transition for hover effect */
+}
+
+.insert-expense-btn:hover,
+.insert-income-btn:hover {
+    background-color: #357a38; /* Darker shade on hover */
+}
+
+/* Additional Responsive Adjustments */
+@media (max-width: 768px) {
+    .expense-creation-area,
+    .income-creation-area {
+        padding: 0.8rem;
+    }
+
+    .insert-expense-btn,
+    .insert-income-btn {
+        padding: 0.4rem 0.8rem;
+    }
+}
+
+.checkbox-container {
+    display: flex;
+    align-items: center; /* Vertically centers the checkbox and label */
+    gap: 0.5rem; /* Spacing between the checkbox and label */
+    margin: 0.5rem 0; /* Adjust margin as per your layout */
+}
+
+/* Optional: Adjust the size of the checkbox */
+.checkbox-container input[type="checkbox"] {
+    width: 20px; /* Size of the checkbox */
+    height: 20px; /* Size of the checkbox */
+}
