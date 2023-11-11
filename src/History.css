@@ -181,3 +181,42 @@
 #filter_icon_container:hover {
   background-color: darkgrey;
 }
+
+
+#delete_entry_pop_up_root_container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  width: 13rem;
+  height: 10rem;
+  border-radius: 5%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+#delete_entry_button_container{
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+}
+
+.delete_entry_buttons {
+  width: 5rem;
+  height: 2.5rem;
+  background-color: white;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10%;
+}
+
+.edit_buttons_image_container{
+  background-color: transparent;
+}
+
+.edit_buttons_image_container:hover{
+  background-color: lightgray;
+}
