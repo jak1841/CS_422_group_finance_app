@@ -5,9 +5,17 @@ import insight from './insight.png';
 import history from './history.png';
 import red_trash from './images/Red_trash_Can.svg';
 import write_symbol from './images/Write_symbol.svg';
+import filter_icon from './images/Filter_icon.svg'
 
+// Overall screen structure 
 export const History = ({ switchScreen }) => {
     const [isMenuOpen, setIsMenuOpen] = useState(false); // State to manage menu toggle
+
+    const [isFilterPopUp_visible, setisFilterPopUp_visible] = useState(false);
+
+    const handle_filterPopUp = () => {
+        setisFilterPopUp_visible(!isFilterPopUp_visible); // Toggle the visibility state
+    };
 
     
     return (
@@ -15,9 +23,14 @@ export const History = ({ switchScreen }) => {
             <div id="history_screen">
                 <div id="top_bar_history">
                     <h1>History</h1>
+                    <div id="filter_icon_container"role="button" onClick={handle_filterPopUp} >
+                        <img src={filter_icon} style={{width: "3rem", height: "3rem"}} />
+                    </div>
                 </div>
                 
-                <Finance_table /> 
+            <Finance_table /> 
+            {isFilterPopUp_visible && <Filter_pop_up/>}
+            
                           
             </div>
             <div id="bottom_menu_history">
@@ -109,4 +122,45 @@ const Item_edit_button = () => {
     
     );
 }
+
+// Filter pop up
+const Filter_pop_up = () => {
+    return (
+        <div id="filter_pop_up_root_container">
+            <p>Choose your filter</p>
+            <DropdownMenu/>
+            <div id="filter_pop_up_button_container">
+                <button id="button_pop_up_cancel">Cancel</button>
+                <button id="button_pop_up_save">Save</button>
+
+
+            </div>
+        </div>
+    );
+}
+// Drop down menu for filter butotn
+const DropdownMenu = () => {
+    const [selectedOption, setSelectedOption] = useState('');
+  
+    const handleSelectChange = (event) => {
+      setSelectedOption(event.target.value);
+    };
+  
+    return (
+      <div>
+        <select id="dropdown" value={selectedOption} onChange={handleSelectChange}>
+          <option value="">-- Select --</option>
+          <option value="option1">Sort By Price &uarr;</option>
+          <option value="option2">Sort By Price &darr;</option>
+          <option value="option3">Sort By Time &uarr;</option>
+          <option value="option4">Sort By Time &darr;</option>
+          <option value="option5">Group By Category</option>
+        </select>        
+      </div>
+    );
+};
+  
+
+
+
 
