@@ -7,6 +7,36 @@ import red_trash from './images/Red_trash_Can.svg';
 import write_symbol from './images/Write_symbol.svg';
 import filter_icon from './images/Filter_icon.svg'
 
+const Data_table = {
+    data: [
+        { id:1, amount: "-$10", category: "Fast Food", date: "2023-10-15" },
+        { id:2, amount: "+$500", category: "Bonus", date: "2023-10-15" },
+        { id:3, amount: "-$250", category: "Utilities", date: "2023-10-16" },
+        { id:4, amount: "-$300", category: "Groceries", date: "2023-10-16" },
+        { id:5, amount: "-$50", category: "Dinner", date: "2023-10-16" },
+        { id:6, amount: "-$120", category: "Groceries", date: "2023-10-17" },
+        { id:7, amount: "-$20", category: "Uber", date: "2023-10-17" },
+        { id:8, amount: "-$20", category: "Uber", date: "2023-10-17" },
+        { id:9, amount: "-$20", category: "Uber", date: "2023-10-17" },
+        { id:10, amount: "-$20", category: "Uber", date: "2023-10-17" },
+        { id:11, amount: "-$20", category: "Uber", date: "2023-10-17" },        
+    ],
+
+    current_id: 12,
+
+    add_income(amount_, category_, date_){
+        this.data.push({id:this.current_id, amount:"+" + amount_, category: category_, date: date_})
+        this.current_id+=1;
+    },
+
+    add_expense(amount_, category_, date_){
+        this.data.push({id:this.current_id, amount:"-" + amount_, category: category_, date: date_})
+        this.current_id+=1;
+    },
+    
+}
+
+export default Data_table;
 
 
 // Overall screen structure 
@@ -65,24 +95,12 @@ export const History = ({ switchScreen }) => {
 }
 
 const Finance_table = (props) => {
-    const data = [
-        { id:1, amount: "-$10", category: "Fast Food", date: "2023-10-15" },
-        { id:2, amount: "+$500", category: "Bonus", date: "2023-10-15" },
-        { id:3, amount: "-$250", category: "Utilities", date: "2023-10-16" },
-        { id:4, amount: "-$300", category: "Groceries", date: "2023-10-16" },
-        { id:5, amount: "-$50", category: "Dinner", date: "2023-10-16" },
-        { id:6, amount: "-$120", category: "Groceries", date: "2023-10-17" },
-        { id:7, amount: "-$20", category: "Uber", date: "2023-10-17" },
-        { id:8, amount: "-$20", category: "Uber", date: "2023-10-17" },
-        { id:9, amount: "-$20", category: "Uber", date: "2023-10-17" },
-        { id:10, amount: "-$20", category: "Uber", date: "2023-10-17" },
-        { id:11, amount: "-$20", category: "Uber", date: "2023-10-17" },        
-      ];
+    
 
     const { update_entry_functions } = props;
     
 
-    const tableRows = data.map((item) => (
+    const tableRows = Data_table.data.map((item) => (
         <tr key={item.id}>
           <td>{item.amount}</td>
           <td>{item.category}</td>

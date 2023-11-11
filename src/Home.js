@@ -3,12 +3,45 @@ import React, { useState } from 'react'; // Import useState
 import home from './home.png';
 import insight from './insight.png';
 import history from './history.png';
+import Data_table from './History.js';
 
 
 export const Home = ({ switchScreen }) => {
+
+    /*
+        Need to insert these states so that it can communicate with history tab to add new infromation 
+        in the table
+    */
+    const [amount_expense, setamount_expense] = useState('');
+
+    const handle_expense_amount_change = (event) => {
+        // Update the state with the current value of the input field
+        setamount_expense(event.target.value);
+    };
+    // Functions to add expense to internal data
+    const add_expense = () => {
+        Data_table.add_expense(amount_expense, "Expense", "11/10/2023");
+    }
+
+    const [amount_income, setamount_income] = useState('');
+
+    const handle_income_amount_change = (event) => {
+        // Update the state with the current value of the input field
+        setamount_income(event.target.value);
+    };
+    // Functions to add income to internal data
+    const add_income = () => {
+        Data_table.add_income(amount_income, "Income", "11/10/2023");
+    }
+        
+
+    /*
+        END
+    */
+
     const [isMenuOpen, setIsMenuOpen] = useState(false); // State to manage menu toggle
     const [isCreateBudgetOpen, setIsCreateBudgetOpen] = useState(false);
-        const [isAddExpenseOpen, setIsAddExpenseOpen] = useState(false);
+    const [isAddExpenseOpen, setIsAddExpenseOpen] = useState(false);
     const [isAddIncomeOpen, setIsAddIncomeOpen] = useState(false);
 
     const toggleAddExpense = () => setIsAddExpenseOpen(!isAddExpenseOpen);
@@ -48,18 +81,18 @@ export const Home = ({ switchScreen }) => {
             </button>
             {isAddExpenseOpen && (
                 <div className="expense-creation-area">
-                    <input type="text" placeholder="Expense Amount" />
+                    <input type="text" placeholder="Expense Amount" value={amount_expense} onChange={handle_expense_amount_change}/>
                     <select name="category">
-                    <option value="">Select Category</option>
-                    <option value="food">Food</option>
-                    <option value="transport">Transport</option>
-                    <option value="utilities">Utilities</option>
+                        <option value="">Select Category</option>
+                        <option value="food">Food</option>
+                        <option value="transport">Transport</option>
+                        <option value="utilities">Utilities</option>
                     </select>
                     <div className="checkbox-container">
                         <input type="checkbox" id="recurringExpense" />
                         <label htmlFor="recurringExpense">Recurring</label>
                     </div>
-                    <button className="insert-expense-btn">Insert Expense →</button>
+                    <button className="insert-expense-btn" onClick={add_expense}>Insert Expense →</button>
                 </div>
             )}
 
@@ -68,7 +101,7 @@ export const Home = ({ switchScreen }) => {
             </button>
             {isAddIncomeOpen && (
                 <div className="income-creation-area">
-                    <input type="text" placeholder="Income Amount" />
+                    <input type="text" placeholder="Income Amount" value={amount_income} onChange={handle_income_amount_change} />
                     <select name="category">
                     <option value="">Select Category</option>
                     <option value="salary">Salary</option>
@@ -79,7 +112,7 @@ export const Home = ({ switchScreen }) => {
                         <input type="checkbox" id="recurringExpense" />
                         <label htmlFor="recurringExpense">Recurring</label>
                     </div>
-                    <button className="insert-income-btn">Insert Income →</button>
+                    <button className="insert-income-btn" onClick={add_income}>Insert Income →</button>
                 </div>
             )}                    
                 </div>
