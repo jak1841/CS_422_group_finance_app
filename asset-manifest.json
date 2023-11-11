@@ -1,20 +1,21 @@
 {
   "files": {
-    "main.css": "/CS_422_group_finance_app/static/css/main.8f797ea7.css",
-    "main.js": "/CS_422_group_finance_app/static/js/main.3385342d.js",
+    "main.css": "/CS_422_group_finance_app/static/css/main.6c71beaa.css",
+    "main.js": "/CS_422_group_finance_app/static/js/main.7bb0a1f7.js",
     "static/media/image3.png": "/CS_422_group_finance_app/static/media/image3.33e5a146bf6ada8fdf89.png",
     "static/media/image1.png": "/CS_422_group_finance_app/static/media/image1.db918a874a3eddf3023a.png",
     "static/media/image2.png": "/CS_422_group_finance_app/static/media/image2.d5d545f26f2b999501a0.png",
     "static/media/history.png": "/CS_422_group_finance_app/static/media/history.fc032c822d49e755e2a8.png",
     "static/media/Red_trash_Can.svg": "/CS_422_group_finance_app/static/media/Red_trash_Can.c27bc1476418eeec984bd95523ee152f.svg",
     "static/media/Write_symbol.svg": "/CS_422_group_finance_app/static/media/Write_symbol.b8302803a3331e60739e372154ed528d.svg",
+    "static/media/Filter_icon.svg": "/CS_422_group_finance_app/static/media/Filter_icon.f67f2f5c3c84c7b43854070cf602f594.svg",
     "static/media/insight.png": "/CS_422_group_finance_app/static/media/insight.6ccf89404e6315036fd9.png",
     "index.html": "/CS_422_group_finance_app/index.html",
-    "main.8f797ea7.css.map": "/CS_422_group_finance_app/static/css/main.8f797ea7.css.map",
-    "main.3385342d.js.map": "/CS_422_group_finance_app/static/js/main.3385342d.js.map"
+    "main.6c71beaa.css.map": "/CS_422_group_finance_app/static/css/main.6c71beaa.css.map",
+    "main.7bb0a1f7.js.map": "/CS_422_group_finance_app/static/js/main.7bb0a1f7.js.map"
   },
   "entrypoints": [
-    "static/css/main.8f797ea7.css",
-    "static/js/main.3385342d.js"
+    "static/css/main.6c71beaa.css",
+    "static/js/main.7bb0a1f7.js"
   ]
 }
