@@ -1,5 +1,5 @@
 import './History.css';
-import React, { useState } from 'react'; // Import useState
+import React, {createContext, useContext, useState } from 'react'; // Import useState
 import home from './home.png';
 import insight from './insight.png';
 import history from './history.png';
@@ -7,15 +7,28 @@ import red_trash from './images/Red_trash_Can.svg';
 import write_symbol from './images/Write_symbol.svg';
 import filter_icon from './images/Filter_icon.svg'
 
+
+
 // Overall screen structure 
 export const History = ({ switchScreen }) => {
     const [isMenuOpen, setIsMenuOpen] = useState(false); // State to manage menu toggle
-
     const [isFilterPopUp_visible, setisFilterPopUp_visible] = useState(false);
 
     const handle_filterPopUp = () => {
         setisFilterPopUp_visible(!isFilterPopUp_visible); // Toggle the visibility state
     };
+
+    // Keeps track of when pop up for delete entry should become available
+    const [isDeleteEntry_PopUP_visible,setisDeleteEntry_PopUP_visible ] = useState(false);
+    const handle_delete_entry_pop_up = () => {
+        setisDeleteEntry_PopUP_visible(!isDeleteEntry_PopUP_visible);
+    }
+
+    const functions = {
+        handle_delete_entry_pop_up
+    }
+
+    
 
     
     return (
@@ -28,8 +41,10 @@ export const History = ({ switchScreen }) => {
                     </div>
                 </div>
                 
-            <Finance_table /> 
-            {isFilterPopUp_visible && <Filter_pop_up/>}
+                <Finance_table update_entry_functions={functions}/> 
+                {isFilterPopUp_visible && <Filter_pop_up/>}
+                {isDeleteEntry_PopUP_visible && <Red_trash_can_delete_entry_pop_up />}
+                
             
                           
             </div>
@@ -49,7 +64,7 @@ export const History = ({ switchScreen }) => {
     );
 }
 
-const Finance_table = () => {
+const Finance_table = (props) => {
     const data = [
         { id:1, amount: "-$10", category: "Fast Food", date: "2023-10-15" },
         { id:2, amount: "+$500", category: "Bonus", date: "2023-10-15" },
@@ -64,6 +79,9 @@ const Finance_table = () => {
         { id:11, amount: "-$20", category: "Uber", date: "2023-10-17" },        
       ];
 
+    const { update_entry_functions } = props;
+    
+
     const tableRows = data.map((item) => (
         <tr key={item.id}>
           <td>{item.amount}</td>
@@ -71,7 +89,7 @@ const Finance_table = () => {
           <td>
             <div className='date_cell_container'>
                 {item.date}
-                <Item_edit_button/>
+                <Item_edit_button update_entry_functions={update_entry_functions}/>
             </div>
           </td>
         </tr>
@@ -96,12 +114,15 @@ const Finance_table = () => {
 }
 
 
-const Item_edit_button = () => {
+const Item_edit_button = (props) => {
     const [isDivVisible, setDivVisible] = useState(false);
 
     const toggleDiv = () => {
         setDivVisible(!isDivVisible);
     };
+
+    const { update_entry_functions } = props;
+    
 
     return(
     <div>
@@ -112,8 +133,12 @@ const Item_edit_button = () => {
         {isDivVisible && (
         <div className='edit_button_pop_up_container'>
             <div className='edit_button_container'>
-                <img style={{width: "1.5rem", height: "1.25rem"}} src={red_trash}/>
-                <img style={{width: "1.5rem", height: "1.5rem"}} src={write_symbol}/>
+                <div className='edit_buttons_image_container' role='button' onClick={update_entry_functions.handle_delete_entry_pop_up}> 
+                    <img style={{width: "1.5rem", height: "1.25rem"}} src={red_trash}/>
+                </div>
+                <div className='edit_buttons_image_container' role='button'>
+                    <img style={{width: "1.5rem", height: "1.5rem"}} src={write_symbol}/>
+                </div>
             </div>
         </div>
         )}
@@ -128,7 +153,7 @@ const Filter_pop_up = () => {
     return (
         <div id="filter_pop_up_root_container">
             <p>Choose your filter</p>
-            <DropdownMenu/>
+            <Filter_DropdownMenu/>
             <div id="filter_pop_up_button_container">
                 <button id="button_pop_up_cancel">Cancel</button>
                 <button id="button_pop_up_save">Save</button>
@@ -139,7 +164,7 @@ const Filter_pop_up = () => {
     );
 }
 // Drop down menu for filter butotn
-const DropdownMenu = () => {
+const Filter_DropdownMenu = () => {
     const [selectedOption, setSelectedOption] = useState('');
   
     const handleSelectChange = (event) => {
@@ -161,6 +186,18 @@ const DropdownMenu = () => {
 };
   
 
+// This for when someone clicks the red trash can this pop up displays
+const Red_trash_can_delete_entry_pop_up = () => {
+    return (
+        <div id="delete_entry_pop_up_root_container">
+            <p>Are you sure you want to delete?</p>
+            <div id="delete_entry_button_container">
+                <button className='delete_entry_buttons' >Yes</button>
+                <button className='delete_entry_buttons' >No</button>
+            </div>
+        </div>
+    );
+}
 
 
 
