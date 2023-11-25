@@ -28,14 +28,77 @@ let Data_table = {
     current_id: 12,
 
     add_income(amount_, category_, date_){
-        this.data.push({id:this.current_id, amount:"+" + amount_, category: category_, date: date_})
+        this.data.push({id:this.current_id, amount:"+$" + amount_, category: category_, date: date_})
         this.current_id+=1;
     },
 
     add_expense(amount_, category_, date_){
-        this.data.push({id:this.current_id, amount:"-" + amount_, category: category_, date: date_})
+        this.data.push({id:this.current_id, amount:"-$" + amount_, category: category_, date: date_})
         this.current_id+=1;
     },
+
+    sortByPriceAscending() {
+        // Compares 
+        const compareAmount = (a, b) => {
+            const numA = parseFloat(a.amount.replace(/[^0-9.-]+/g, ''));
+            const numB = parseFloat(b.amount.replace(/[^0-9.-]+/g, ''));
+            return numB - numA;
+        };
+
+        this.data.sort(compareAmount);
+    }, 
+
+    sortByPriceDescending() {
+        // Compares 
+        const compareAmount = (a, b) => {
+            const numA = parseFloat(a.amount.replace(/[^0-9.-]+/g, ''));
+            const numB = parseFloat(b.amount.replace(/[^0-9.-]+/g, ''));
+            return numA - numB;
+        };
+
+        this.data.sort(compareAmount);
+    }, 
+
+    sortByDateAscending() {
+        // Custom compare function for sorting by date
+        const compareDate = (a, b) => {
+            const dateA = new Date(a.date);
+            const dateB = new Date(b.date);
+            return dateB - dateA;
+        };
+
+        this.data.sort(compareDate);
+    }, 
+
+    sortByDateDescending() {
+        // Custom compare function for sorting by date
+        const compareDate = (a, b) => {
+            const dateA = new Date(a.date);
+            const dateB = new Date(b.date);
+            return dateA - dateB;
+        };
+
+        this.data.sort(compareDate);
+    }, 
+
+    groupByCategory() {
+        const groupedByCategory = this.data.reduce((grouped, item) => {
+            const category = item.category;
+          
+            // If the category doesn't exist in the grouped object, create an empty array
+            grouped[category] = grouped[category] || [];
+          
+            // Push the current item to the array corresponding to its category
+            grouped[category].push(item);
+          
+            return grouped;
+          }, {});
+
+          const collapsedArray = Object.values(groupedByCategory).flat();
+          
+          this.data = collapsedArray;
+    }
+
 
    
     
@@ -55,7 +118,6 @@ export const History = ({ switchScreen }) => {
 
 
 
-    const [isMenuOpen, setIsMenuOpen] = useState(false); // State to manage menu toggle
     const [isFilterPopUp_visible, setisFilterPopUp_visible] = useState(false);
     const handle_filterPopUp = () => {
         setisFilterPopUp_visible(!isFilterPopUp_visible); // Toggle the visibility state
@@ -67,9 +129,11 @@ export const History = ({ switchScreen }) => {
         setisDeleteEntry_PopUP_visible(!isDeleteEntry_PopUP_visible);
     }
 
+    // Functions will be passed through to MyContext provider so that children components can use them
     const functions = {
         handle_delete_entry_pop_up:handle_delete_entry_pop_up,
-        refreshAllComponents:refreshAllComponents
+        refreshAllComponents:refreshAllComponents,
+        handle_filterPopUp:handle_filterPopUp
     }
 
     
@@ -187,13 +251,15 @@ const Item_edit_button = (props) => {
 
 // Filter pop up
 const Filter_pop_up = () => {
+    const contextValues = useContext(MyContext);
+    let functions = contextValues.function;
+
     return (
         <div id="filter_pop_up_root_container">
             <p>Choose your filter</p>
             <Filter_DropdownMenu/>
             <div id="filter_pop_up_button_container">
-                <button id="button_pop_up_cancel">Cancel</button>
-                <button id="button_pop_up_save">Save</button>
+                <button id="button_pop_up_cancel" onClick={functions.handle_filterPopUp}>Exit</button>
             </div>
         </div>
     );
@@ -201,20 +267,36 @@ const Filter_pop_up = () => {
 // Drop down menu for filter butotn
 const Filter_DropdownMenu = () => {
     const [selectedOption, setSelectedOption] = useState('');
+    
+    const contextValues = useContext(MyContext);
+    let functions = contextValues.function;
   
     const handleSelectChange = (event) => {
       setSelectedOption(event.target.value);
+      if (event.target.value == "Price_Ascending"){
+        Data_table.sortByPriceAscending();
+      } else if (event.target.value == "Price_Descending"){
+        Data_table.sortByPriceDescending();
+      } else if (event.target.value == "Time_Ascending"){
+        Data_table.sortByDateAscending();
+      } else if (event.target.value == "Time_Descending"){
+        Data_table.sortByDateDescending();
+      } else if (event.target.value == "GroupByCategory"){
+        Data_table.groupByCategory();
+      }
+
+      functions.refreshAllComponents();
     };
   
     return (
       <div>
         <select id="dropdown" value={selectedOption} onChange={handleSelectChange}>
           <option value="">-- Select --</option>
-          <option value="option1">Sort By Price &uarr;</option>
-          <option value="option2">Sort By Price &darr;</option>
-          <option value="option3">Sort By Time &uarr;</option>
-          <option value="option4">Sort By Time &darr;</option>
-          <option value="option5">Group By Category</option>
+          <option value="Price_Ascending">Sort By Price &uarr;</option>
+          <option value="Price_Descending">Sort By Price &darr;</option>
+          <option value="Time_Ascending">Sort By Time &uarr;</option>
+          <option value="Time_Descending">Sort By Time &darr;</option>
+          <option value="GroupByCategory">Group By Category</option>
         </select>        
       </div>
     );
