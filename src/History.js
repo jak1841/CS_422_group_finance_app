@@ -5,7 +5,8 @@ import insight from './insight.png';
 import history from './history.png';
 import red_trash from './images/Red_trash_Can.svg';
 import write_symbol from './images/Write_symbol.svg';
-import filter_icon from './images/Filter_icon.svg'
+import filter_icon from './images/Filter_icon.svg';
+import green_checkmark_icon from './images/GreenCheckMarkSVG.svg';
 import { func } from 'prop-types';
 
 const MyContext = React.createContext(); // This will be where the global states will be located
@@ -97,6 +98,13 @@ let Data_table = {
           const collapsedArray = Object.values(groupedByCategory).flat();
           
           this.data = collapsedArray;
+    }, 
+
+    // Given a index and a amount, category, and date will replace that particular indexes values 
+    updateIndex(index, amount, category, date) {
+        this.data[index].amount = amount;
+        this.data[index].category = category;
+        this.data[index].date = date;
     }
 
 
@@ -115,12 +123,18 @@ export const History = ({ switchScreen }) => {
         setRefreshFlag(!refreshFlag);
     };
 
+    // Needed to get reference to the row that will be doing the editing
+    const [ChosenRowToEdit, setChosenRowToEdit] = useState(-1);
+    const ChosenRowEditContext = {
+        ChosenRowToEdit:ChosenRowToEdit, 
+        setChosenRowToEdit:setChosenRowToEdit
+    } 
+    
 
-
-
+    // State for handling whether the filter pop up will be seen 
     const [isFilterPopUp_visible, setisFilterPopUp_visible] = useState(false);
     const handle_filterPopUp = () => {
-        setisFilterPopUp_visible(!isFilterPopUp_visible); // Toggle the visibility state
+        setisFilterPopUp_visible(!isFilterPopUp_visible); 
     };
 
     // Keeps track of when pop up for delete entry should become available
@@ -140,7 +154,7 @@ export const History = ({ switchScreen }) => {
 
     
     return (
-        <MyContext.Provider value={{function:functions}}>
+        <MyContext.Provider value={{function:functions, ChosenRowEditContext:ChosenRowEditContext}}>
             <div id="root_container_History">
                 <div id="history_screen">
                     <div id="top_bar_history">
@@ -172,18 +186,43 @@ export const History = ({ switchScreen }) => {
 }
 
 const Finance_table = () => {
-    const tableRows = Data_table.data.map((item, index) => (
-        <tr key={item.id}>
-          <td>{item.amount}</td>
-          <td>{item.category}</td>
-          <td>
-            <div className='date_cell_container'>
-                {item.date}
-                <Item_edit_button index={index}/>
-            </div>
-          </td>
-        </tr>
-      ));
+
+
+    const contextValues = useContext(MyContext);
+    let  ChosenRowToEdit = contextValues.ChosenRowEditContext.ChosenRowToEdit;
+    
+    
+
+    
+
+    let tableRows = Data_table.data.map((item, index) => {
+        const rowStyle = ChosenRowToEdit == index ? { backgroundColor: "#ffffff" } : {};
+
+        
+
+        
+
+        
+        let readOnlyRow = (
+            <tr key={item.id}>
+                <td>{item.amount}</td>
+                <td>{item.category}</td>
+                <td>
+                    <div className='date_cell_container'>
+                        {item.date}
+                        <Item_edit_button index={index}/>
+                    </div>
+                </td>
+            </tr>
+        );
+
+        if (ChosenRowToEdit == index) {
+            return <Editable_Finance_table_row index={index} item={item}/>;
+        } 
+        return readOnlyRow;
+
+        
+    });
       
     return (
         <div id="fincial_table_container">
@@ -203,6 +242,65 @@ const Finance_table = () => {
     
 }
 
+// This will be the table row where edits will occur
+const Editable_Finance_table_row = (props) => {
+    let item = props.item;
+    let index = props.index;
+
+
+    const [amount, setAmount] = useState(item.amount);
+    const [category, setCategory] = useState(item.category);
+    const [date, setdate] = useState(item.date);
+
+    const handleAmountChange = (e) => {
+        setAmount(e.target.value);
+    };
+
+    const handleCategoryChange = (e) => {
+        setCategory(e.target.value);
+    };
+
+    const handleDateChange = (e) => {
+        setdate(e.target.value);
+    };
+
+
+    let RowContext = {
+        amount:amount, 
+        category:category, 
+        date:date
+    }    
+
+    return (        
+        <tr key={item.id}>
+            <td>
+                <input className='EditableRowCell'
+                    type="text"
+                    value={amount}
+                    onChange={handleAmountChange}
+                />
+
+            </td>
+            <td>
+                <input className='EditableRowCell'
+                    type="text"
+                    value={category}
+                    onChange={handleCategoryChange}
+                />
+            </td>
+            <td>
+                <div className='date_cell_container'>
+                    <input className='EditableRowCell'
+                        type="text"
+                        value={date}
+                        onChange={handleDateChange}
+                    />
+                    <Item_Green_check_mark_button index={index} RowContext={RowContext}/>
+                </div>
+            </td>
+        </tr>
+    );
+}
 
 const Item_edit_button = (props) => {
     const [isDivVisible, setDivVisible] = useState(false);
@@ -221,8 +319,12 @@ const Item_edit_button = (props) => {
         Data_table.data.splice(index, 1);
         functions.refreshAllComponents();
         setDivVisible(false);
-
     }
+
+    const editEntry = () => {
+        contextValues.ChosenRowEditContext.setChosenRowToEdit(index)
+    }
+    
     
 
     return(
@@ -237,7 +339,7 @@ const Item_edit_button = (props) => {
                 <div className='edit_buttons_image_container' role='button' onClick={deleteEntry}> 
                     <img style={{width: "1.5rem", height: "1.25rem"}} src={red_trash}/>
                 </div>
-                <div className='edit_buttons_image_container' role='button'>
+                <div className='edit_buttons_image_container' role='button' onClick={editEntry}>
                     <img style={{width: "1.5rem", height: "1.5rem"}} src={write_symbol}/>
                 </div>
             </div>
@@ -248,6 +350,32 @@ const Item_edit_button = (props) => {
     
     );
 }
+
+// This will display a green check mark button
+const Item_Green_check_mark_button = (props) => {
+
+    const contextValues = useContext(MyContext);
+    let functions = contextValues.function;
+    let index = props.index;
+    let RowContext = props.RowContext;
+
+
+    // This is what happens to the function 
+    const onSaveEdit = () => {
+        contextValues.ChosenRowEditContext.setChosenRowToEdit(-1); // Removes green checkmark and restores it
+        Data_table.updateIndex(index, RowContext.amount, RowContext.category, RowContext.date);
+        functions.refreshAllComponents();
+    }
+
+    return(
+        <div>
+            <div className='edit_buttons_image_container' role='button' onClick={onSaveEdit}> 
+                    <img style={{width: "1.5rem", height: "1.25rem"}} src={green_checkmark_icon}/>
+            </div>
+        </div>
+    );
+}
+
 
 // Filter pop up
 const Filter_pop_up = () => {
@@ -302,7 +430,6 @@ const Filter_DropdownMenu = () => {
     );
 };
   
-
 // This for when someone clicks the red trash can this pop up displays
 const Red_trash_can_delete_entry_pop_up = () => {
     return (

@@ -220,3 +220,8 @@
 .edit_buttons_image_container:hover{
   background-color: lightgray;
 }
+
+.EditableRowCell{
+  width: 60%;
+  height: 50%;
+}
