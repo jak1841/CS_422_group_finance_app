@@ -76,13 +76,13 @@
 
 .menu_button_history {
     display: flex;
-    width: 50px; /* Fixed width and height for circles */
-    height: 50px; 
+    width: 40px; /* Fixed width and height for circles */
+    height: 40px; 
     background: #272626; /* Light grey background for the buttons */
-    background-color: lightblue;
+    background-color: #ffffff;
     border: none;
-    border-radius: 50%;
-    border-radius: 2rem; /* Rounded corners for the buttons */
+    border-radius: 2%;
+    border-radius: .5rem; /* Rounded corners for the buttons */
     font-size: 1rem;
     color: white; /* Text color */
     line-height: 50px; /* Center the text vertically */
