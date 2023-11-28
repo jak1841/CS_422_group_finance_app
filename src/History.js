@@ -105,10 +105,21 @@ let Data_table = {
         this.data[index].amount = amount;
         this.data[index].category = category;
         this.data[index].date = date;
-    }
+    },
 
+    // Returns a true if date is in format
+    isValidDateString(dateString) {
+        // Use the Date object to check if the date is valid
+        const date = new Date(dateString);
+        return !isNaN(date.getTime());
+    },
 
-   
+    // Returns true if amount is in correct format
+    isValidAmountFormat(input){
+        // Use a regular expression to check if the input matches the desired format
+        const currencyRegex = /^[-+]?\$\d+$/;
+        return currencyRegex.test(input);
+    },
     
 }
 
@@ -168,7 +179,7 @@ export const History = ({ switchScreen }) => {
                     {isFilterPopUp_visible && <Filter_pop_up/>}
                     {isDeleteEntry_PopUP_visible && <Red_trash_can_delete_entry_pop_up />}  
                 </div>
-                <div id="bottom_menu_history">
+                {/* <div id="bottom_menu_history">
                         <button className="menu_button_history" onClick={() => switchScreen('insights')}>
                             <img className="menus_buttons_image_history" src={insight} alt="Insights" />
                         </button>
@@ -178,7 +189,7 @@ export const History = ({ switchScreen }) => {
                         <button className="menu_button_history" onClick={() => switchScreen('history')}>
                             <img className="menus_buttons_image_history" src={history} alt="History" />
                         </button>
-                    </div>     
+                    </div>      */}
                 
             </div>
         </MyContext.Provider>
@@ -363,6 +374,17 @@ const Item_Green_check_mark_button = (props) => {
     // This is what happens to the function 
     const onSaveEdit = () => {
         contextValues.ChosenRowEditContext.setChosenRowToEdit(-1); // Removes green checkmark and restores it
+        if (Data_table.isValidAmountFormat(RowContext.amount) == false){
+            alert("not in valid format for amount, must be in -$x or +$x but got " + RowContext.amount);
+            return;
+        }
+
+        if (Data_table.isValidDateString(RowContext.date) == false){
+            alert("not in valid format, must be in yyyy-mm-dd " + RowContext.date,);
+            return;
+        }
+
+
         Data_table.updateIndex(index, RowContext.amount, RowContext.category, RowContext.date);
         functions.refreshAllComponents();
     }
