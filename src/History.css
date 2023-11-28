@@ -35,7 +35,7 @@
 #fincial_table_container {
     align-items: center;
     overflow: auto;
-    height: 27rem; /* Set the desired height for your table container */
+    height: 100%; /* Set the desired height for your table container */
 
 }
   
