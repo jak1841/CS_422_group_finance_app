@@ -32,37 +32,13 @@
 }
 
 #hamburger_button {
-    width: 30px;
-    height: 30px;
+    width: 40px;
+    height: 35px;
     background-color: #fff; 
     border: none;
     border-radius: 0.375rem; /* Rounded square shape */
     position: relative; /* Relative position for pseudo-elements */
     cursor: pointer;
-}
-
-#hamburger_button::before,
-#hamburger_button::after,
-#hamburger_button span {
-    content: '';
-    position: absolute;
-    width: 20px; /* Width of the bars */
-    height: 2px; /* Height of the bars */
-    background-color: #333; /* Color of the bars */
-    transition: all 0.3s; /* Transition for the animation */
-}
-
-#hamburger_button span {
-    top: 50%;
-    transform: translateY(-50%);
-}
-
-#hamburger_button::before {
-    top: 10px;
-}
-
-#hamburger_button::after {
-    bottom: 10px;
 }
 
 #side_menu {
@@ -110,26 +86,46 @@
 }
 
 .buttons-container {
-    margin: 5rem 0; /* Add some margin at the top and bottom */
+    margin: 4rem 0; /* Add some margin at the top and bottom */
     flex-grow: 1; /* Allows the container to grow and fill available space */
     display: flex;
     flex-direction: column;
     justify-content: top; /* Center buttons vertically */
     align-items: center;
-    gap: 5.5rem; /* Adjust gap to a reasonable size */
+    gap: 2rem; 
     overflow-y: auto;
 }
 
 .green-button {
     background-color: lightgreen;
-    color: white;
+    color: black;
     border: none;
-    border-radius: 5px;
-    padding: 2px 5px;
-    height: 40px;
-    width: calc(100% - 40px);
+    border-radius: 50%; /* Make it round */
+    padding: 0; /* Remove padding */
+    height: 200px; 
+    width: 200px; 
     font-size: 1em;
     cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative; /* Needed for the plus symbol */
+}
+
+.sub-green-button {
+    margin: 3rem 0;
+    background-color: lightgreen;
+    color: white;
+    border: none;
+    border-radius: 10%; /* Make it round */
+    padding: 0; /* Remove padding */
+    height: 40px; 
+    width: 250px; 
+    font-size: 1em;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .green-button:hover {
@@ -137,7 +133,9 @@
 }
 
 .green-button.expanded {
-    border-radius: 1rem; /* Consistent with the design */
+    height: 30px; /* Smaller height for the close button */
+    width: 250px; /* Smaller width for the close button */
+    border-radius: 10px; /* Less rounded, more rectangular shape */
 }
 
 .budget-creation-area {
