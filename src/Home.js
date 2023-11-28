@@ -100,6 +100,9 @@ export const Home = ({ switchScreen }) => {
         const dateString = todayDate.toLocaleDateString();
 
         Data_table.add_expense(amount_expense, selectCategory, dateString);
+        toggleAddExpense();
+        alert("Added Expense");
+        
     }
 
     const [amount_income, setamount_income] = useState('');
@@ -110,7 +113,12 @@ export const Home = ({ switchScreen }) => {
     };
     // Functions to add income to internal data
     const add_income = () => {
-        Data_table.add_income(amount_income, "Income", "11/10/2023");
+        const todayDate = new Date();
+        const dateString = todayDate.toLocaleDateString();
+        Data_table.add_income(amount_income, selectCategory, dateString);
+        toggleAddIncome();
+        alert("Added income");
+        
     }
 
 
@@ -182,11 +190,11 @@ export const Home = ({ switchScreen }) => {
                             {isAddIncomeOpen && (
                                 <div className="income-creation-area">
                                     <input type="text" placeholder="Income Amount" value={amount_income} onChange={handle_income_amount_change} />
-                                    <select name="category">
+                                    <select name="category" value={selectCategory} onChange={handleSelectCategoryChange} >
                                         <option value="">Select Category</option>
-                                        <option value="salary">Salary</option>
-                                        <option value="investment">Investment</option>
-                                        <option value="gift">Gift</option>
+                                        <option value="Salary">Salary</option>
+                                        <option value="Investment">Investment</option>
+                                        <option value="Gift">Gift</option>
                                     </select>
                                     <div className="checkbox-container">
                                         <input type="checkbox" id="recurringExpense" />
