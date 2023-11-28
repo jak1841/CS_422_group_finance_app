@@ -21,6 +21,12 @@ export const Home = ({ switchScreen }) => {
     const [totalExpenses, setTotalExpenses] = useState(0);
     const [totalIncome, setTotalIncome] = useState(0);
     const [dailyAvailableAmount, setDailyAvailableAmount] = useState(0);
+    const [dailyInc, setDailyInc] = useState(0);
+    const [isRecurringIncome, setIsRecurringIncome] = useState(false);
+
+    const handleRecurringChange = (event) => {
+        setIsRecurringIncome(event.target.checked);
+    };
 
     const track_expense = () => {
         const expenseAmount = parseFloat(amount_expense);
@@ -29,12 +35,15 @@ export const Home = ({ switchScreen }) => {
 
     const track_income = () => {
         const incomeAmount = parseFloat(amount_income);
-        setTotalIncome(prevIncome => prevIncome + incomeAmount);
+        if (!isNaN(incomeAmount) && incomeAmount > 0) {
+            setTotalIncome(prevIncome => prevIncome + incomeAmount);
+        }
     };
 
     useEffect(() => {
         const daysUntilGoal = Math.ceil((new Date(targetDate) - new Date()) / (1000 * 60 * 60 * 24)) || 1;
         const dailyIncome = totalIncome / daysUntilGoal;
+        setDailyInc(dailyIncome);
         setDailyAvailableAmount(dailyIncome - dailySavingsBudget);
     }, [totalIncome, dailySavingsBudget, targetDate]);
 
@@ -96,13 +105,16 @@ export const Home = ({ switchScreen }) => {
 
     // Functions to add expense to internal data
     const add_expense = () => {
+        //Data_table.add_expense(amount_expense, "Expense", "11/10/2023");
+        track_expense();
+        setDailyAvailableAmount(dailyInc - amount_expense);
         const todayDate = new Date();
         const dateString = todayDate.toLocaleDateString();
 
         Data_table.add_expense(amount_expense, selectCategory, dateString);
         toggleAddExpense();
         alert("Added Expense");
-        
+
     }
 
     const [amount_income, setamount_income] = useState('');
@@ -113,12 +125,24 @@ export const Home = ({ switchScreen }) => {
     };
     // Functions to add income to internal data
     const add_income = () => {
+        let incomeAmount = parseFloat(amount_income);
+        if (!isNaN(incomeAmount) && incomeAmount > 0) {
+            if (isRecurringIncome) {
+                const startDate = new Date();
+                const endDate = new Date(targetDate);
+                const monthsUntilGoal = Math.max(0, endDate.getMonth() - startDate.getMonth() + (12 * (endDate.getFullYear() - startDate.getFullYear())));
+                incomeAmount *= monthsUntilGoal; // Reassigning allowed with 'let'
+            }
+            setTotalIncome(prevIncome => prevIncome + incomeAmount);
+        } else {
+            alert('Please enter a valid income amount');
+        }
         const todayDate = new Date();
         const dateString = todayDate.toLocaleDateString();
         Data_table.add_income(amount_income, selectCategory, dateString);
         toggleAddIncome();
         alert("Added income");
-        
+
     }
 
 
@@ -143,25 +167,25 @@ export const Home = ({ switchScreen }) => {
                         <img src={history} alt="History" style={{ width: '100%', height: '100%' }} />
                     </button>
                 </div>
-            
+
                 <div className="buttons-container">
 
                     {showPieChart ? (
+
                         <div className="pie-chart-container">
                             {/* Insert your Pie Chart Component here with the data */}
-                            <p>Daily Savings to reach budget: ${dailySavingsBudget.toFixed(2)}</p>
-                            {showPieChart && (
-                                <div>
-                                    {/* ... other components ... */}
-                                    <p>Daily Available Spending: ${dailyAvailableAmount.toFixed(2)}</p>
-                                    <Pie data={{
-                                        labels: ['Available Amount', 'Expenses', 'Income'],
-                                        datasets: [{
-                                            data: [dailyAvailableAmount, totalExpenses, totalIncome],
-                                            backgroundColor: ['green', 'red', 'blue'],
-                                        }]
-                                    }} />
-                                </div>
+                            <p>Daily savings needed: ${dailySavingsBudget.toFixed(2)}</p>
+                            <p>Daily Available Spending: ${dailyInc.toFixed(2)}</p>
+                            {totalIncome > 0 ? (
+                                <Pie data={{
+                                    labels: ['Spent', 'Available Budget'],
+                                    datasets: [{
+                                        data: [totalExpenses, dailyInc - totalExpenses],
+                                        backgroundColor: ['green', 'white'],
+                                    }]
+                                }} />
+                            ) : (
+                                <p>Please enter your Income to generate budget</p>
                             )}
 
                             <button className={`sub-green-button ${isAddExpenseOpen ? 'expanded' : ''}`} onClick={toggleAddExpense}>
@@ -195,10 +219,11 @@ export const Home = ({ switchScreen }) => {
                                         <option value="Salary">Salary</option>
                                         <option value="Investment">Investment</option>
                                         <option value="Gift">Gift</option>
+                                        <option value="Savings">Savings</option>
                                     </select>
                                     <div className="checkbox-container">
-                                        <input type="checkbox" id="recurringExpense" />
-                                        <label htmlFor="recurringExpense">Recurring</label>
+                                        <input type="checkbox" id="recurringIncome" checked={isRecurringIncome} onChange={handleRecurringChange} />
+                                        <label htmlFor="recurringIncome">Recurring</label>
                                     </div>
                                     <button className="insert-income-btn" onClick={add_income}>Insert Income →</button>
                                 </div>
@@ -210,7 +235,7 @@ export const Home = ({ switchScreen }) => {
 
                     ) : (
                         <button className={`green-button ${isCreateBudgetOpen ? 'expanded' : ''}`} onClick={toggleCreateBudget}>
-                            {isCreateBudgetOpen ? 'Close' : 'Create Budget'}
+                            {isCreateBudgetOpen ? 'Close' : 'Create Budget Goal'}
                         </button>
                     )}
                     {isCreateBudgetOpen && (

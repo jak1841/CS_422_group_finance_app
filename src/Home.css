@@ -86,7 +86,7 @@
 }
 
 .buttons-container {
-    margin: 4rem 0; /* Add some margin at the top and bottom */
+    margin: 2rem 0; /* Add some margin at the top and bottom */
     flex-grow: 1; /* Allows the container to grow and fill available space */
     display: flex;
     flex-direction: column;
@@ -115,7 +115,7 @@
 .sub-green-button {
     margin: 3rem 0;
     background-color: lightgreen;
-    color: white;
+    color: black;
     border: none;
     border-radius: 10%; /* Make it round */
     padding: 0; /* Remove padding */
