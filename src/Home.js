@@ -79,9 +79,27 @@ export const Home = ({ switchScreen }) => {
         // Update the state with the current value of the input field
         setamount_expense(event.target.value);
     };
+
+
+    /* 
+        Keeps track of selecting category state
+    */
+
+    const [selectCategory, setSelectCategory] = useState('');
+
+    const handleSelectCategoryChange = (event) => {
+        const value = event.target.value;
+        setSelectCategory(value);
+    };
+
+
+
     // Functions to add expense to internal data
     const add_expense = () => {
-        Data_table.add_expense(amount_expense, "Expense", "11/10/2023");
+        const todayDate = new Date();
+        const dateString = todayDate.toLocaleDateString();
+
+        Data_table.add_expense(amount_expense, selectCategory, dateString);
     }
 
     const [amount_income, setamount_income] = useState('');
@@ -144,11 +162,11 @@ export const Home = ({ switchScreen }) => {
                             {isAddExpenseOpen && (
                                 <div className="expense-creation-area">
                                     <input type="text" placeholder="Expense Amount" value={amount_expense} onChange={handle_expense_amount_change} />
-                                    <select name="category">
+                                    <select name="category" value={selectCategory} onChange={handleSelectCategoryChange}>
                                         <option value="">Select Category</option>
-                                        <option value="food">Food</option>
-                                        <option value="transport">Transport</option>
-                                        <option value="utilities">Utilities</option>
+                                        <option value="Food">Food</option>
+                                        <option value="Transport">Transport</option>
+                                        <option value="Utilities">Utilities</option>
                                     </select>
                                     <div className="checkbox-container">
                                         <input type="checkbox" id="recurringExpense" />
