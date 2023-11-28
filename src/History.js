@@ -169,6 +169,9 @@ export const History = ({ switchScreen }) => {
             <div id="root_container_History">
                 <div id="history_screen">
                     <div id="top_bar_history">
+                        <button className="menu_button_history" onClick={() => switchScreen('home')}>
+                            <img className="menus_buttons_image_history" src={home} alt="Home" />
+                        </button>
                         <h1>History</h1>
                         <div id="filter_icon_container"role="button" onClick={handle_filterPopUp} >
                             <img src={filter_icon} style={{width: "3rem", height: "3rem"}} />
